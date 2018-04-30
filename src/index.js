@@ -15,8 +15,13 @@ class App extends Component{
 		super(props) ;
 
 		this.state = { videos: [] }
+		this.videoSearch('Thor') ;
+		
+	}	
 
-		YTSearch({key:API_KEY, term:'birds'}, (videos) => {
+	videoSearch(term){
+
+		YTSearch({key:API_KEY, term:term}, (videos) => {
 
 			this.setState({ videos });
 
@@ -24,12 +29,12 @@ class App extends Component{
 			// this.setState({videos:videos});
 			// Quando key e value tiverem o mesmo nome posso fazer isto
 		})
-	}	
+	}
 
 
 	render(){
-		return (<div>
-					<SearchBar />
+		return (<div> 
+					<SearchBar onSearchTermChange = {term => this.videoSearch(term)} />
 					<VideoDetail video = {this.state.videos[0]} />
 					<VideoList videos = {this.state.videos} />
 				</div>) ;	
